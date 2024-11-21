@@ -1,10 +1,10 @@
 const md5 = require('md5')
 
 const clickCheckToken = (data, signString) => {
-	const { transId, serviceId, orderId, merchantPrepareId, amount, action, signTime } = data
+	const { click_trans_id, service_id, orderId, merchant_prepare_id, amount, action, sign_time } = data
 	const CLICK_SECRET_KEY = process.env.CLICK_SECRET_KEY
-	const prepareId = merchantPrepareId || ''
-	const signature = `${transId}${serviceId}${CLICK_SECRET_KEY}${orderId}${prepareId}${amount}${action}${signTime}`
+	const prepareId = merchant_prepare_id || ''
+	const signature = `${click_trans_id}${service_id}${CLICK_SECRET_KEY}${orderId}${prepareId}${amount}${action}${sign_time}`
 	const signatureHash = md5(signature)
 	return signatureHash === signString
 }
